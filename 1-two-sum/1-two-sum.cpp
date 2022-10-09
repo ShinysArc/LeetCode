@@ -2,15 +2,21 @@ class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target)
     {
-        for (int i = 0; i < nums.size() - 1; i++)
+        map<int, int> map;
+        vector<int> res;
+        for (int i = 0; i < nums.size(); i++)
         {
-            for (int j = i + 1; j < nums.size(); j++)
+            int complement = target - nums[i];
+            if (map.find(complement) != map.end())
             {
-                if ((nums[i] + nums[j]) == target)
-                    return { i, j };
+                res.push_back(map.find(complement)->second);
+                res.push_back(i);
+                break;
             }
+            
+            map.insert(pair<int, int>(nums[i], i));
         }
         
-        return { 0, 0 };
+        return res;
     }
 };
