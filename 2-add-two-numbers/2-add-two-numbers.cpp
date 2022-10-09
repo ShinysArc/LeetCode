@@ -21,18 +21,19 @@ public:
             int a = 0;
             int b = 0;
             if (l1)
+            {
                 a = l1->val;
+                l1 = l1->next;
+            }
             if (l2)
+            {
                 b = l2->val;
+                l2 = l2->next;
+            }
             
             auto sum = carry + a + b;
             current->next = new ListNode(sum % 10);
             carry = sum / 10;
-            
-            if (l1)
-                l1 = l1->next;
-            if (l2)
-                l2 = l2->next;
             current = current->next;
         }
 
