@@ -1,32 +1,51 @@
 class MyCircularQueue {
 public:
-    MyCircularQueue(int k): q_(k) {}
-  
-  bool enQueue(int value) {
-    if (isFull()) return false;
-    q_[(head_ + size_) % q_.size()] = value;    
-    ++size_;
-    return true;
-  }
-  
-  bool deQueue() {
-    if (isEmpty()) return false;
-    head_ = (head_ + 1) % q_.size();
-    --size_;
-    return true;
-  }
- 
-  int Front() { return isEmpty() ? -1 : q_[head_]; }
- 
-  int Rear() { return isEmpty() ? -1 : q_[(head_ + size_ - 1) % q_.size()]; }
- 
-  bool isEmpty() { return size_ == 0; }
- 
-  bool isFull() { return size_ == q_.size(); }
+    MyCircularQueue(int k)
+    : q_(k)
+    , head_(0)
+    , currentSize_(0)
+    {}
+    
+    bool enQueue(int value) {
+        if (isFull())
+            return false;
+        q_[(head_ + currentSize_) % q_.size()] = value;
+        currentSize_++;
+        return true;
+    }
+    
+    bool deQueue() {
+        if (isEmpty())
+            return false;
+        head_ = (head_ + 1) % q_.size();
+        currentSize_--;
+        return true;
+    }
+    
+    int Front() {
+        if (isEmpty())
+            return -1;
+        return q_[head_];
+    }
+    
+    int Rear() {
+        if (isEmpty())
+            return -1;
+        return q_[(head_ + currentSize_ - 1) % q_.size()];
+    }
+    
+    bool isEmpty() {
+        return currentSize_ == 0;
+    }
+    
+    bool isFull() {
+        return q_.size() == currentSize_;
+    }
+
 private:
-  vector<int> q_;
-  int head_ = 0;
-  int size_ = 0;
+    int currentSize_;
+    int head_;
+    vector<int> q_;
 };
 
 /**
