@@ -1,6 +1,9 @@
 class Solution {
 public:
     string reorganizeString(string s) {
+        if (s.length() <= 1)
+            return s;
+        
         string res;
         
         unordered_map<char, int> hist;
